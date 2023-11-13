@@ -2,26 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer base {
+  * {
+    @apply box-border list-none p-0 m-0 scroll-smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  body {
+    @apply bg-black text-white min-h-screen;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.dotted-background {
+  background-image: radial-gradient(#181818 5%, #0000001f 15%);
+
+  background-color: #000000;
+  background-position: 0 0, 14px 14px;
+  background-size: 16px 16px;
+  /* height: 30px; */
+  position: absolute !important;
+  width: 100%;
+
+  /* background-image: radial-gradient(#181818 45%, #0000001f 100%); DIAMOND */
+  /* background-image: radial-gradient(#181818 50%, #0000001f 100%);  SQUARE*/
+  /* background-image: radial-gradient(#181818 25%, #0000001f 100%) ellipse at center; HEART */
+  /* background-size: 206px 16px; */
+}
+
+.result-background {
+  background-image: radial-gradient(#f6f6f6 15%, transparent 15%);
+  background-color: #ffffff;
+  background-position: 0 0, 14px 14px;
+  background-size: 16px 16px;
+  /* height: 30px; */
+  position: absolute !important;
+  width: 100%;
 }
