@@ -24,8 +24,8 @@ export const sidebarLink: SidebarLink[] = [
   },
   {
     imgURL: "assets/tag.svg",
-    route: "/tags",
-    label: "Tags",
+    route: "/topics",
+    label: "Topics",
   },
   {
     imgURL: "assets/profile.svg",
