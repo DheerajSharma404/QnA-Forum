@@ -16,7 +16,7 @@ import { usePathname } from "next/navigation";
 const NavContent = () => {
   const pathname = usePathname();
   return (
-    <section className='flex h-full flex-col gap-6 pt-8'>
+    <section className='flex min-h-screen flex-col gap-4 pt-8'>
       {sidebarLink.map((item) => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
@@ -74,16 +74,30 @@ const MobileNav = () => {
             <div className='flex flex-col gap-2'>
               <SheetClose asChild>
                 <Link href='/sign-in'>
-                  <Button className='w-full rounded-full bg-black'>
-                    <span>Log In</span>
+                  <Button className='w-full rounded-full bg-black justify-start gap-4'>
+                    <Image
+                      src='assets/login.svg'
+                      alt='Sign Up'
+                      width={24}
+                      height={24}
+                      className='filter invert cursor-pointer'
+                    />
+                    <span className=''>Log In</span>
                   </Button>
                 </Link>
               </SheetClose>
 
               <SheetClose asChild>
                 <Link href='/sign-up'>
-                  <Button className='w-full rounded-full border border-black bg-transparent'>
-                    <span className='text-black'>Sign Up</span>
+                  <Button className='w-full rounded-full border border-black bg-transparent flex items-center justify-start gap-4'>
+                    <Image
+                      src='assets/signup.svg'
+                      alt='Sign Up'
+                      width={24}
+                      height={24}
+                      className='filter cursor-pointer '
+                    />
+                    <span className='text-black '>Sign Up</span>
                   </Button>
                 </Link>
               </SheetClose>

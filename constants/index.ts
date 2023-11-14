@@ -28,6 +28,11 @@ export const sidebarLink: SidebarLink[] = [
     label: "Tags",
   },
   {
+    imgURL: "assets/profile.svg",
+    route: "/profile",
+    label: "Profile",
+  },
+  {
     imgURL: "assets/ask_question.svg",
     route: "/ask_question",
     label: "Ask a Question",
