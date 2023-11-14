@@ -2,7 +2,11 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-const ThemeContext = createContext({});
+interface ThemeContextProps {
+  mode: string;
+  setMode: (mode: string) => void;
+}
+const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState("");
