@@ -22,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${inter.variable}`}>
+      <body
+        className={`${inter.variable} result-background dark:dotted-background`}
+      >
         <ClerkProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>

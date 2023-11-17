@@ -5,12 +5,12 @@ import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className=' bg-white text-black dark:bg-black dark:text-white relative p-2'>
+    <main className=' text-black dark:text-white relative px-2 '>
       <Navbar />
-      <div className='flex border-red-600 '>
+      <div className='flex '>
         <LeftSideBar />
-        <section className='flex  flex-1 flex-col min-h-screen '>
-          <div className='w-full mx-auto max-w-5xl border'>{children}</div>
+        <section className='flex rounded-xl mt-[16px] sm:mx-2 flex-1 flex-col  '>
+          <div className='w-full mx-auto max-w-3xl  mt-2'>{children}</div>
         </section>
         <RightSideBar />
       </div>

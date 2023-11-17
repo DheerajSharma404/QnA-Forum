@@ -10,7 +10,7 @@ import { SignedOut } from "@clerk/nextjs";
 const LeftSideBar = () => {
   const pathname = usePathname();
   return (
-    <section className='border max-w-[240px] h-[678px] rounded-xl mt-2 sticky hidden sm:block px-4  '>
+    <section className='border max-w-[240px] h-[680px] rounded-xl mt-2  hidden sm:block px-4 sticky left-0 top-20 bg-white'>
       <div className='flex flex-1 flex-col gap-6 pt-4 '>
         {sidebarLink.map((item) => {
           const isActive =
