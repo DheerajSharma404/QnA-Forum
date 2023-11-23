@@ -5,66 +5,15 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
+import { getQuestions } from "@/lib/actions/question.actions";
 import Link from "next/link";
 
-export default function Home() {
-  const questions = [
-    {
-      _id: "1",
-      title: "Cascading Delet On SQLAlchemy?",
-      topics: [
-        { _id: "1", name: "Database" },
-        { _id: "2", name: "SQL" },
-      ],
-      author: {
-        _id: "1",
-        name: "Jhon Doe",
-        picture: "/assets/images/profile.png",
-      },
-      upvotes: 10,
-      views: 100,
-      answers: [],
-      createdAt: new Date("2022-03-14T09:30:00.000Z"),
-    },
-    {
-      _id: "2",
-      title: "Cascading Delet On SQLAlchemy?",
-      topics: [
-        { _id: "1", name: "Database" },
-        { _id: "2", name: "SQL" },
-      ],
-      author: {
-        _id: "1",
-        name: "Jhon Doe",
-        picture: "/assets/images/profile1.png",
-      },
-      upvotes: 10,
-      views: 100,
-      answers: [],
-      createdAt: new Date("2022-03-14T09:30:00.000Z"),
-    },
-    {
-      _id: "3",
-      title: "How center a div in CSS?",
-      topics: [
-        { _id: "1", name: "CSS" },
-        { _id: "2", name: "Tailwind" },
-      ],
-      author: {
-        _id: "1",
-        name: "Jhon Doe",
-        picture: "/assets/images/profile3.png",
-      },
-      upvotes: 10,
-      views: 200,
-      answers: [],
-      createdAt: new Date("2022-03-14T09:30:00.000Z"),
-    },
-  ];
+export default async function Home() {
+  const result = await getQuestions({});
 
   return (
     <>
-      <div className=' flex  w-full flex-col-reverse px-4 py-3  justify-between gap-4 sm:flex-row sm:items-center'>
+      <div className=' flex  w-full flex-col-reverse px-4 py-2  justify-between gap-4 sm:flex-row sm:items-center'>
         <h1 className='text-4xl font-bold'>All Questions</h1>
         <Link href='/ask_question' className='flex justify-end max-sm:w-full'>
           <Button className='bg-black rounded-full text-white px-8 py-3 min-h-[56px] '>
@@ -88,8 +37,8 @@ export default function Home() {
       </div>
       <HomeFilters />
       <div className='mt-4 flex w-full flex-col gap-6 px-4'>
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}

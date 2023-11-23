@@ -22,7 +22,7 @@ const RightSideBar = () => {
     { _id: "5", name: "Tailwind", totalQuestions: 5 },
   ];
   return (
-    <section className='border w-[360px] h-[680px] rounded-xl mt-2 sticky right-0 top-20 max-xl:hidden px-5 overflow-y-auto bg-white  dark:bg-black dark:text-white'>
+    <section className='border-[0.5px] w-[260px] h-[680px] rounded-xl mt-4 sticky right-0 top-20 max-xl:hidden px-5 overflow-y-auto bg-white  dark:bg-black dark:text-white '>
       <div className='pt-3 '>
         <h3 className='text-2xl font-bold '>Top Question</h3>
         <div className='mt-4 flex w-full flex-col gap-4 '>

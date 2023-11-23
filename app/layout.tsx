@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "QnA Forum",
+  title: "Question And Answer | Forum",
   description: "A Community driven QnA Forum for all your questions",
 };
 

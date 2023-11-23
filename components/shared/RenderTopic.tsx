@@ -15,10 +15,12 @@ const RenderTopic = ({ _id, name, totalQuestions, showCount }: Props) => {
       href={`/topics/${_id}`}
       className='flex  items-center justify-between gap-2'
     >
-      <Badge className='px-4 py-2 rounded-xl bg-slate-100 text-xs text-black hover:text-white'>
+      <Badge className='px-4 py-2 rounded-xl bg-slate-100 text-xs text-black hover:text-white capitalize'>
         {name}
       </Badge>
-      {showCount && <p className='text-xs pr-3'> {totalQuestions}</p>}
+      {showCount && (
+        <p className='text-xs pr-3 font-semibold'> {totalQuestions}</p>
+      )}
     </Link>
   );
 };

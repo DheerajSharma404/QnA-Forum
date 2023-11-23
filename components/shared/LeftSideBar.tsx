@@ -10,8 +10,8 @@ import { SignedOut } from "@clerk/nextjs";
 const LeftSideBar = () => {
   const pathname = usePathname();
   return (
-    <section className='border max-w-[240px] h-[680px] rounded-xl mt-2  hidden sm:block px-4 sticky left-0 top-20 bg-white'>
-      <div className='flex flex-1 flex-col gap-6 pt-4 '>
+    <section className='border-[0.5px] h-[680px] rounded-xl mt-4  hidden sm:block px-4 sticky left-0 top-20 bg-white lg:w-[260px]'>
+      <div className='flex flex-col gap-6 pt-4 '>
         {sidebarLink.map((item) => {
           const isActive =
             (pathname.includes(item.route) && item.route.length > 1) ||
@@ -22,7 +22,7 @@ const LeftSideBar = () => {
               href={item.route}
               className={`${
                 isActive && "bg-black text-white rounded-full"
-              } flex items-center justify-start gap-4 p-4 hover:bg-black hover:text-white hover:rounded-full`}
+              } flex items-center p-4 justify-start hover:bg-black hover:text-white hover:rounded-full gap-3 `}
             >
               <Image
                 src={item.imgURL}
