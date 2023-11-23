@@ -14,7 +14,7 @@ const NoResult = ({ title, description, link, linkTitle }: Props) => {
   return (
     <div className='mt-4 flex w-full flex-col items-center justify-center'>
       <Image
-        src='/assets/images/no_result_illustration.png'
+        src='/assets/images/nor_result_illustration.png'
         alt='No Result Illustration'
         width={200}
         height={200}
@@ -23,7 +23,7 @@ const NoResult = ({ title, description, link, linkTitle }: Props) => {
 
       <h2 className='text-xl font-bold mt-4'>{title}</h2>
       <p className='text-xs my-2.5 max-w-md text-center'>{description}</p>
-      <Link href='/ask_question'>
+      <Link href={link}>
         <Button className='bg-black  rounded-full px-9 py-3'>
           {linkTitle}
         </Button>
