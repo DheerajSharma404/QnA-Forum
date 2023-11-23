@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import RenderTopic from "../shared/RenderTopic";
 import Metric from "../shared/Metric";
-import { View } from "lucide-react";
 
 interface QuestionProps {
   _id: string;
@@ -53,7 +52,7 @@ const QuestionCard = ({
       </div>
       <div className='flex justify-between mt-4 w-full flex-wrap gap-3'>
         <Metric
-          imgUrl='/assets/images/profile.png'
+          imgUrl={author.picture}
           alt='user'
           value={author.name}
           title={` - asked ${getTimestamp(createdAt)}`}
