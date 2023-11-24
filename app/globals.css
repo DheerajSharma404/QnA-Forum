@@ -2,19 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    @apply box-border list-none p-0 m-0 scroll-smooth;
-  }
-
-  body {
-    @apply bg-black text-white min-h-screen;
-  }
+.result-background {
+  background-image: radial-gradient(#f6f6f6 15%, transparent 15%);
+  background-color: #ffffff;
+  background-position: 0 0, 14px 14px;
+  background-size: 16px 16px;
+  /* height: 30px; */
+  position: absolute !important;
+  width: 100%;
 }
-
 .dotted-background {
   background-image: radial-gradient(#181818 5%, #0000001f 15%);
-
   background-color: #000000;
   background-position: 0 0, 14px 14px;
   background-size: 16px 16px;
@@ -26,14 +24,4 @@
   /* background-image: radial-gradient(#181818 50%, #0000001f 100%);  SQUARE*/
   /* background-image: radial-gradient(#181818 25%, #0000001f 100%) ellipse at center; HEART */
   /* background-size: 206px 16px; */
-}
-
-.result-background {
-  background-image: radial-gradient(#f6f6f6 15%, transparent 15%);
-  background-color: #ffffff;
-  background-position: 0 0, 14px 14px;
-  background-size: 16px 16px;
-  /* height: 30px; */
-  position: absolute !important;
-  width: 100%;
 }
