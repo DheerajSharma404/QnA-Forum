@@ -7,13 +7,12 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/api/webhook(.*)",
-    "question/:id",
+    "questions/:id",
     "/topics",
     "/topics/:id",
     "/profile/:id",
     "/community",
   ],
-  ignoredRoutes: ["/api/webhook(.*)"],
 });
 
 export const config = {
