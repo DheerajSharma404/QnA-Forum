@@ -16,6 +16,8 @@ export default authMiddleware({
   ignoredRoutes: ["/api/webhook"],
 });
 
+console.log("authMiddleware", authMiddleware);
+
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
