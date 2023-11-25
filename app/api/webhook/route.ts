@@ -101,12 +101,16 @@ export async function POST(req: Request) {
   }
   if (eventType === "user.deleted") {
     const { id } = evt.data;
+    try {
+      const deletedUser = await deleteUser({
+        clerkId: id!,
+      });
 
-    const deletedUser = await deleteUser({
-      clerkId: id!,
-    });
-
-    return NextResponse.json({ message: "OK", deletedUser }, { status: 201 });
+      return NextResponse.json({ message: "OK", deletedUser }, { status: 201 });
+    } catch (error) {
+      console.log("Error while deleting user", error);
+      throw error;
+    }
   }
 
   return new Response("", { status: 200 });
