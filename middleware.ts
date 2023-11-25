@@ -1,19 +1,26 @@
-import { authMiddleware } from "@clerk/nextjs/server";
+import { authMiddleware as clerkAuthMiddleware } from "@clerk/nextjs";
 
-export const middleware = authMiddleware({
-  // If you want to use a different redirect path, you can set it here.
-  // redirectUrl: "/sign-in",
-  // If you want to use a different path for the API route, you can set it here.
-  // path: "/api/auth",
+export const authMiddleware = (options: any) => {
+  const middleware = clerkAuthMiddleware(options);
 
-  publicRoutes: ["/", "/app/api/webhook"],
-  ignoredRoutes: ["/api/webhook"],
+  return async (req: any, res: any, next: any) => {
+    console.log("Before authMiddleware");
+    try {
+      await middleware(req, res);
+      console.log("After authMiddleware");
+      next();
+    } catch (error) {
+      console.error("Error in authMiddleware", error);
+      res.status(500).send("Error in authMiddleware");
+    }
+  };
+};
+
+export default authMiddleware({
+  publicRoutes: ["/", "/api/webhook(.*)"],
+  ignoredRoutes: ["/api/webhook(.*)"],
 });
-
-console.log("Middleware:", middleware);
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
-
-console.log("Config", middleware);
