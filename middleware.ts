@@ -1,11 +1,11 @@
 import { authMiddleware } from "@clerk/nextjs";
 
-export const middleware = authMiddleware({
+export default authMiddleware({
   publicRoutes: ["/", "/api/webhook"],
   ignoredRoutes: ["/api/webhook"],
 });
 
-console.log("middleware", middleware);
+console.log("authMiddleware", authMiddleware);
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
