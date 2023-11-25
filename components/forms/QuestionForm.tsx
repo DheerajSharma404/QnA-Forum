@@ -137,7 +137,7 @@ const QuestionForm = ({ mongoUser }: Props) => {
               </FormLabel>
               <FormControl className='mt-3.5'>
                 <Editor
-                  apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API}
                   onBlur={field.onBlur} // save the value to form on blur
                   onEditorChange={(content) => field.onChange(content)}
                   initialValue=''

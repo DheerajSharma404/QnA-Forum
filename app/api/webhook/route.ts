@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
@@ -5,8 +6,8 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  console.log("Post function called");
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
+
   const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
@@ -17,17 +18,10 @@ export async function POST(req: Request) {
 
   // Get the headers
   const headerPayload = headers();
-  // const svix_id = headerPayload.get("svix-id");
-  // const svix_timestamp = headerPayload.get("svix-timestamp");
-  // const svix_signature = headerPayload.get("svix-signature");
-  // Get the headers
-  const svix_id = req.headers.get("svix-id");
-  const svix_timestamp = req.headers.get("svix-timestamp");
-  const svix_signature = req.headers.get("svix-signature");
+  const svix_id = headerPayload.get("svix-id");
+  const svix_timestamp = headerPayload.get("svix-timestamp");
+  const svix_signature = headerPayload.get("svix-signature");
 
-  console.log("svix_id", svix_id);
-  console.log("svix_timestamp", svix_timestamp);
-  console.log("svix_signature", svix_signature);
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
     return new Response("Error occured -- no svix headers", {
@@ -39,9 +33,8 @@ export async function POST(req: Request) {
   const payload = await req.json();
   const body = JSON.stringify(payload);
 
-  // Create a new Svix instance with your secret.
+  // Create a new SVIX instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
-  
 
   let evt: WebhookEvent;
 
@@ -60,64 +53,51 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-  const { id } = evt.data;
   const eventType = evt.type;
-  console.log("Event type:", eventType);
+  console.log(eventType);
 
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
-    try {
-      // Create a new user in your database
-      const mongoUser = await createUser({
-        clerkId: id,
-        name: `${first_name} ${last_name ? `${last_name}` : ""}`,
-        email: email_addresses[0].email_address,
-        picture: image_url,
-        username: username!,
-      });
 
-      return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
-    } catch (error) {
-      console.log("Error while creating user", error);
-      throw error;
-    }
+    // Create a new user in your database
+    const mongoUser = await createUser({
+      clerkId: id,
+      name: `${first_name} ${last_name ? `${last_name}` : ""}`,
+      email: email_addresses[0].email_address,
+      picture: image_url,
+      username: username!,
+    });
+
+    return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
   }
   if (eventType === "user.updated") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
-    try {
-      // Create a new user in your database
-      const mongoUser = await updateUser({
-        clerkId: id,
-        updateData: {
-          name: `${first_name} ${last_name ? `${last_name}` : ""}`,
-          email: email_addresses[0].email_address,
-          picture: image_url,
-          username: username!,
-        },
-        path: `/profile/${id}`,
-      });
 
-      return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
-    } catch (error) {
-      console.log("Error while updating user", error);
-      throw error;
-    }
+    // Create a new user in your database
+    const mongoUser = await updateUser({
+      clerkId: id,
+      updateData: {
+        name: `${first_name} ${last_name ? `${last_name}` : ""}`,
+        email: email_addresses[0].email_address,
+        picture: image_url,
+        username: username!,
+      },
+      path: `/profile/${id}`,
+    });
+
+    return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
   }
   if (eventType === "user.deleted") {
     const { id } = evt.data;
-    try {
-      const deletedUser = await deleteUser({
-        clerkId: id!,
-      });
 
-      return NextResponse.json({ message: "OK", deletedUser }, { status: 201 });
-    } catch (error) {
-      console.log("Error while deleting user", error);
-      throw error;
-    }
+    const deletedUser = await deleteUser({
+      clerkId: id!,
+    });
+
+    return NextResponse.json({ message: "OK", deletedUser }, { status: 201 });
   }
 
-  return new Response("", { status: 200 });
+  return new Response("", { status: 201 });
 }
