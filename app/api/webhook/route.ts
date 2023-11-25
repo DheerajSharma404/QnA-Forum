@@ -16,10 +16,13 @@ export async function POST(req: Request) {
 
   // Get the headers
   const headerPayload = headers();
-  const svix_id = headerPayload.get("svix-id");
-  const svix_timestamp = headerPayload.get("svix-timestamp");
-  const svix_signature = headerPayload.get("svix-signature");
-
+  // const svix_id = headerPayload.get("svix-id");
+  // const svix_timestamp = headerPayload.get("svix-timestamp");
+  // const svix_signature = headerPayload.get("svix-signature");
+  // Get the headers
+  const svix_id = req.headers.get("svix-id");
+  const svix_timestamp = req.headers.get("svix-timestamp");
+  const svix_signature = req.headers.get("svix-signature");
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
     return new Response("Error occured -- no svix headers", {
@@ -58,35 +61,43 @@ export async function POST(req: Request) {
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
-
-    // Create a new user in your database
-    const mongoUser = await createUser({
-      clerkId: id,
-      name: `${first_name} ${last_name ? `${last_name}` : ""}`,
-      email: email_addresses[0].email_address,
-      picture: image_url,
-      username: username!,
-    });
-
-    return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
-  }
-  if (eventType === "user.updated") {
-    const { id, email_addresses, image_url, username, first_name, last_name } =
-      evt.data;
-
-    // Create a new user in your database
-    const mongoUser = await updateUser({
-      clerkId: id,
-      updateData: {
+    try {
+      // Create a new user in your database
+      const mongoUser = await createUser({
+        clerkId: id,
         name: `${first_name} ${last_name ? `${last_name}` : ""}`,
         email: email_addresses[0].email_address,
         picture: image_url,
         username: username!,
-      },
-      path: `/profile/${id}`,
-    });
+      });
 
-    return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
+      return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
+    } catch (error) {
+      console.log("Error while creating user", error);
+      throw error;
+    }
+  }
+  if (eventType === "user.updated") {
+    const { id, email_addresses, image_url, username, first_name, last_name } =
+      evt.data;
+    try {
+      // Create a new user in your database
+      const mongoUser = await updateUser({
+        clerkId: id,
+        updateData: {
+          name: `${first_name} ${last_name ? `${last_name}` : ""}`,
+          email: email_addresses[0].email_address,
+          picture: image_url,
+          username: username!,
+        },
+        path: `/profile/${id}`,
+      });
+
+      return NextResponse.json({ message: "OK", mongoUser }, { status: 201 });
+    } catch (error) {
+      console.log("Error while updating user", error);
+      throw error;
+    }
   }
   if (eventType === "user.deleted") {
     const { id } = evt.data;
